@@ -11,12 +11,11 @@ sys.path.append("{}/src/python-armory".format(path))
 from gene_mapping import to_ensembl
 
 # Filenames and global variables
-timestamp = 160129
+timestamp = 160208
 mapping_mm_mm_file = "{}/data/mapping/ensembl_v83_ensembl_mgisymbol_Mm.tab.gz".format(path)
 mapping_mm_hs_file = "{}/data/mapping/ensembl_v82_Mm_Hs.tab.gz".format(path)
 mouse_celltype_file = "{}/data/initial/NeuronData_average.txt.gz".format(path)
 human_celltype_file = "{}/data/initial/{}_by_celltype.tab".format(path,timestamp)
-
 
 # Mouse to human gene mapping
 df_mm2mm = pd.read_csv(mapping_mm_mm_file,compression="gzip",index_col=1,sep="\t")
@@ -28,7 +27,12 @@ df_mm = pd.read_csv(mouse_celltype_file,sep="\t",index_col=0,header=0,compressio
 
 # Map to human
 df_hs,not_mapped = to_ensembl(df_mm2mm,df_mm2hs,df_mm)
+
+# Standardize genes' expresion across tissues
 pdb.set_trace()
+df_hs_st = (df_hs - df_hs.mean()) / df_hs.std()
+
+df_hs.sub(df_hs.mean(axis=1),axis=0).div(df_hs.std(axis=1),axis=0)
 
 # Save
-df_hs.to_csv(human_celltype_file,index=True,header=True,sep="\t")
+df_hs_st.to_csv(human_celltype_file,index=True,header=True,sep="\t")
