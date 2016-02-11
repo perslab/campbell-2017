@@ -29,10 +29,7 @@ df_mm = pd.read_csv(mouse_celltype_file,sep="\t",index_col=0,header=0,compressio
 df_hs,not_mapped = to_ensembl(df_mm2mm,df_mm2hs,df_mm)
 
 # Standardize genes' expresion across tissues
-pdb.set_trace()
-df_hs_st = (df_hs - df_hs.mean()) / df_hs.std()
-
-df_hs.sub(df_hs.mean(axis=1),axis=0).div(df_hs.std(axis=1),axis=0)
+df_hs_st = df_hs.sub(df_hs.mean(axis=1),axis=0).div(df_hs.std(axis=1),axis=0)
 
 # Save
 df_hs_st.to_csv(human_celltype_file,index=True,header=True,sep="\t")
