@@ -1,3 +1,3 @@
-[submodule "src/python-armory"]
-	path = src/python-armory
-	url = git@github.com:perslab/python-armory.git
+[submodule "src/perslab-sc-library"]
+	path = src/perslab-sc-library
+	url = git@github.com:perslab/perslab-sc-library.git
