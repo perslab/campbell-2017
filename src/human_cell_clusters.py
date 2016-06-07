@@ -12,15 +12,16 @@ from gene_mapping import to_ensembl
 from dropseq import standardize
 
 # Filenames and global variables
-timestamp = 160324
-#label = "Allcell_020816_BC_clustered1"
-#label = "Allcell_020816_BC_microcluster"
-label = "Allneuron_35PC_clusters"
+timestamp = 160603
+label = "Allcell_020816_BC_LN_tsne_clustered"
+#label = "Allcell_020816_BC_LN_tsne_microcluster"
+#label = "Allneuron_35PC_Genespace_LN_tsne_clusters"
 mapping_mm_mm_file = "{}/data/mapping/ensembl_v83_ensembl_mgisymbol_Mm.tab.gz".format(path)
 mapping_mm_hs_file = "{}/data/mapping/ensembl_v82_Mm_Hs.tab.gz".format(path)
 mouse_cellclusters_file = "{}/data/{}/{}_Data_average.txt.gz".format(path,timestamp,label)
 human_cellclusters_file = "{}/data/{}/{}_{}_cellclusters.tab".format(path,timestamp,timestamp,label)
-human_cellclusters_standardized_file = "{}/data/{}/{}_{}_cellclusters_standardized.tab".format(path,timestamp,timestamp,label)
+human_cellclusters_standardized_file = "{}/data/{}/{}_{}_cellclusters_std.tab".format(path,timestamp,timestamp,label)
+cellcluster_mapping_file = "{}/data/{}/{}_mapping.txt".format(path,timestamp,label)
 
 # Mouse to human gene mapping
 df_mm2mm = pd.read_csv(mapping_mm_mm_file,compression="gzip",index_col=1,sep="\t")
@@ -29,6 +30,10 @@ df_mm2hs = pd.read_csv(mapping_mm_hs_file,compression="gzip",index_col=0,sep="\t
 
 # Read data
 df_mm_cellclusters = pd.read_csv(mouse_cellclusters_file,sep="\t",index_col=0,header=0,compression="gzip")
+
+# Add header
+df_header = pd.read_csv(cellcluster_mapping_file,index_col=0,header=0,sep='\t')
+df_mm_cellclusters.columns = df_header.ix[[int(x) for x in df_mm_cellclusters.columns.tolist()]].Identifier.tolist()
 
 # Normalize
 #df_nm = normalize(df_raw)
