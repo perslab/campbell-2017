@@ -13,9 +13,10 @@ from dropseq import standardize
 
 # Filenames and global variables
 timestamp = 160603
-label = "Allcell_020816_BC_LN_tsne_clustered"
+#label = "Allcell_020816_BC_LN_tsne_clustered"
 #label = "Allcell_020816_BC_LN_tsne_microcluster"
 #label = "Allneuron_35PC_Genespace_LN_tsne_clusters"
+label = "Allneuron_35PC_Genespace_LN_tsne_clusters_arconly"
 mapping_mm_mm_file = "{}/data/mapping/ensembl_v83_ensembl_mgisymbol_Mm.tab.gz".format(path)
 mapping_mm_hs_file = "{}/data/mapping/ensembl_v82_Mm_Hs.tab.gz".format(path)
 mouse_cellclusters_file = "{}/data/{}/{}_Data_average.txt.gz".format(path,timestamp,label)
