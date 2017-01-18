@@ -1,2 +1,2 @@
-# campbell-2016
-Scripts and data files related to Campbell 2016 paper
+# Campbell *et al. Nature Neuroscience* 2016
+Scripts and config files for the DEPICT analyses in Campbell *et al. Nature Neuroscience* 2016.
